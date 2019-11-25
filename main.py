@@ -92,20 +92,18 @@ for k in range(generation):
         fitnessList[i] = populationMat[-1][i]
 
     #finding 2 best matching chromosome:
-    for i in range(2):
+    firstMaxMAt = np.zeros(len(image))
+    secondMaxMat = np.zeros(len(image))
+    for j in range(2):
 
         result = np.where(fitnessList == np.amax(fitnessList))
         fitnessList[result[0][0]] = -1 *fitnessList[result[0][0]]
-        firstMaxMAt = np.zeros(len(image))
-        secondMaxMat = np.zeros(len(image))
-
-        for i in range(len(image)):
-            firstMaxMAt[i] = populationMat[i][result[0][0]]
-
-        result = np.where(fitnessList == np.amax(fitnessList))
-
-        for i in range(len(image)):
-            secondMaxMat[i] = populationMat[i][result[0][0]]
+        if (j == 0):
+            for i in range(len(image)):
+                firstMaxMAt[i] = populationMat[i][result[0][0]]
+        else:
+            for i in range(len(image)):
+                secondMaxMat[i] = populationMat[i][result[0][0]]
 
     # Crossover :
     firstChild = np.zeros(len(image))
