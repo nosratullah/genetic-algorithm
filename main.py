@@ -61,7 +61,7 @@ image = initialization(image)
 imaginary = chromosomeProcess(image)
 fitnessValue = fitness(image,imaginary)
 population = 20
-generation = 100
+generation = 10000
 
 for k in range(generation):
 
@@ -119,9 +119,7 @@ for k in range(generation):
         else:
             firstChild[i] = secondMaxMat[i]
             secondChild[i] = firstChild[i]
-
-
-
-plt.imshow(squarization(image));
-
-plt.imshow(squarization(firstChild));
+    if (k%100 == 0):
+        plt.imshow(squarization(firstChild))
+        plt.savefig('/png/figure{}'.format(k))
+        print(np.max(fitnessList))
