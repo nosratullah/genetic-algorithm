@@ -3,6 +3,13 @@ import matplotlib.pyplot as plt
 import scipy.misc as sp
 import matplotlib.image as mpimg
 
+image = mpimg.imread('/Users/nosratullah/Documents/Lectures/iasbs/season 4/Complex systems/geneticAlgorithm/bunny.png')
+
+#plt.imshow(image);
+
+#plt.imshow(squarization(image));
+#plt.imshow(squarization(imaginary));
+
 def squarization(matrix):
 
     squar = int(np.sqrt(len(matrix)))
@@ -47,5 +54,74 @@ def mutation(matrix):
 
             matrix[i] = -1 * matrix[i]
 
+    return matrix
 
-#image = mpimg.imread('')
+image = image.flatten()
+image = initialization(image)
+imaginary = chromosomeProcess(image)
+fitnessValue = fitness(image,imaginary)
+population = 20
+generation = 100
+
+for k in range(generation):
+
+    if ( k == 0):
+        populationMat = np.zeros((len(image)+1,population))
+        np.shape(populationMat)
+        for i in range(population):
+            tempMat = chromosomeProcess(image)
+            for j in range(len(image)+1):
+                if (j==(len(image))):
+                    populationMat[j][i] = fitness(image,tempMat)
+                else:
+                    populationMat[j][i] = tempMat[j]
+
+        #np.shape(populationMat)
+    else:
+        for i in range(population):
+            tempMat = mutation(firstChild)
+            for j in range(len(image)+1):
+
+                if (j==(len(image))):
+                    populationMat[j][i] = fitness(image,tempMat)
+                else:
+                    populationMat[j][i] = tempMat[j]
+
+    fitnessList = np.zeros(population)
+    for i in range(population):
+        fitnessList[i] = populationMat[-1][i]
+
+    #finding 2 best matching chromosome:
+    for i in range(2):
+
+        result = np.where(fitnessList == np.amax(fitnessList))
+        fitnessList[result[0][0]] = -1 *fitnessList[result[0][0]]
+        firstMaxMAt = np.zeros(len(image))
+        secondMaxMat = np.zeros(len(image))
+
+        for i in range(len(image)):
+            firstMaxMAt[i] = populationMat[i][result[0][0]]
+
+        result = np.where(fitnessList == np.amax(fitnessList))
+
+        for i in range(len(image)):
+            secondMaxMat[i] = populationMat[i][result[0][0]]
+
+    # Crossover :
+    firstChild = np.zeros(len(image))
+    secondChild = np.zeros(len(image))
+    for i in range(len(image)):
+
+        if(i<len(image)/2.0):
+
+            firstChild[i] = firstMaxMAt[i]
+            secondChild[i] = secondMaxMat[i]
+        else:
+            firstChild[i] = secondMaxMat[i]
+            secondChild[i] = firstChild[i]
+
+
+
+plt.imshow(squarization(image));
+
+plt.imshow(squarization(firstChild));
