@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import scipy.misc as sp
 import matplotlib.image as mpimg
 
-image = mpimg.imread('/Users/nosratullah/Documents/Lectures/iasbs/season 4/Complex systems/geneticAlgorithm/bunny.png')
+image = mpimg.imread('bunny.png')
 
 #plt.imshow(image);
 
